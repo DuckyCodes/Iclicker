@@ -5,8 +5,11 @@
 3. Download the correct [ChromeDriver](https://developer.chrome.com/docs/chromedriver/downloads) for your Chrome version and place it in the src folder.
 
 4. Install [Selenium](https://www.selenium.dev/documentation/webdriver/getting_started/install_library/) if you haven't already.
+ ```console
+pip install selenium
+```
 
-5. Enter the necessary information in setup.py where marked with 'xxx'.
+6. Enter the necessary information in setup.py where marked with 'xxx'.
 
-6. Skip class and catch some sleep since iClickers are no longer needed!
+7. Skip class and catch some sleep since iClickers are no longer needed!
 
