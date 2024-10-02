@@ -1,0 +1,6 @@
+Ensure Python is installed on your system.
+Make sure you have Chrome as your browser.
+Download the correct ChromeDriver for your Chrome version and place it in the src folder.
+Install Selenium if you haven't already.
+Enter the necessary information in setup.py where marked with 'xxx'.
+Skip class and catch some sleep since iClickers are no longer needed!
