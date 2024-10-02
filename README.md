@@ -2,7 +2,7 @@
 
 2. Make sure you have Chrome as your browser.
 
-3. Download the correct ChromeDriver for your Chrome version and place it in the src folder.
+3. Download the correct [ChromeDriver](https://developer.chrome.com/docs/chromedriver/downloads) for your Chrome version and place it in the src folder.
 
 4. Install [Selenium](https://www.selenium.dev/documentation/webdriver/getting_started/install_library/) if you haven't already.
 
