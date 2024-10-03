@@ -13,3 +13,5 @@ pip install selenium
 
 7. Skip class and catch some sleep since iClickers are no longer needed!
 
+8. Please Star My iClicker Project
+
