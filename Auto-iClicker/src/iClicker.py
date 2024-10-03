@@ -1,16 +1,30 @@
 import time
+import os
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from setup import EMAIL, PASSWORD, CLASS_NAME, CLASS_URL, POLL_RATE, WAIT_JOIN
 
-s = Service(r"C:\Users\Jing\Desktop\Projects\Auto-iClicker\src\chromedriver.exe")
+import os
+from selenium import webdriver
 
-driver = webdriver.Chrome(service=s)
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the path to the chromedriver
+driver_path = os.path.join(current_dir, 'chromedriver')
+
+# Create a Service object with the path to the ChromeDriver
+service = Service(driver_path)
+
+# Initialize the Chrome WebDriver with the Service object
+driver = webdriver.Chrome(service=service)
+# Now you can use the driver to control the browser
+driver.get('https://www.google.com')
+
 
 # Log in to iClicker
 driver.get('https://student.iclicker.com/#/login')
@@ -40,7 +54,6 @@ search = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.XPATH, '//*[text()="'+CLASS_NAME+'"]'))
 )
 search.click()
-
 
 # Attempt to find and click the Join button
 button_found = False
@@ -90,8 +103,5 @@ while not driver.current_url.startswith(CLASS_URL):
     time.sleep(POLL_RATE)  # Wait before the next polling
 
 print("Ended")
-# Cleanup
-driver.quit()
-
 # Cleanup
 driver.quit()
