@@ -22,9 +22,6 @@ service = Service(driver_path)
 
 # Initialize the Chrome WebDriver with the Service object
 driver = webdriver.Chrome(service=service)
-# Now you can use the driver to control the browser
-driver.get('https://www.google.com')
-
 
 # Log in to iClicker
 driver.get('https://student.iclicker.com/#/login')
@@ -78,30 +75,42 @@ while not button_found:
 time.sleep(7)
 
 # Polling loop for multiple choice A
-while not driver.current_url.startswith(CLASS_URL):
+previous_poll_detected = False  # Track if we detected a previous poll
 
+while True:
     print("While loop working")
-    if driver.current_url.startswith(CLASS_URL + '/poll'):
-        clicked = False
-        print("Poll URL detected, entering retry loop for Multiple Choice A")
-        
-        # Indefinite retry loop until clicked
-        while not clicked:
-            try:
-                # Wait for the option to be clickable
-                multiple_choice_a = WebDriverWait(driver, 10).until(
-                    EC.element_to_be_clickable((By.ID, 'multiple-choice-a'))
-                )
-                multiple_choice_a.click()  # Attempt to click using Selenium
-                clicked = True  # Mark as clicked if successful
-                print("Clicked on Multiple Choice A.")
-            except Exception as e:
-                print(f"Click failed: {e}, retrying...")
-                time.sleep(1)  # Wait before retrying
-                print("Re-checking Multiple Choice A...")
+    print(f"Current URL: {driver.current_url}")
+    # Check if the current URL is for a poll
+    if '/poll' in driver.current_url:
+        if not previous_poll_detected:  # If we haven't handled a poll yet
+            clicked = False
+            print("Poll URL detected, entering retry loop for Multiple Choice A")
 
-    time.sleep(POLL_RATE)  # Wait before the next polling
+            # Indefinite retry loop until clicked
+            while not clicked:
+                try:
+                    # Wait for the option to be clickable
+                    multiple_choice_a = WebDriverWait(driver, 10).until(
+                        EC.element_to_be_clickable((By.ID, 'multiple-choice-a'))
+                    )
+                    multiple_choice_a.click()  # Attempt to click using Selenium
+                    clicked = True  # Mark as clicked if successful
+                    print("Clicked on Multiple Choice A.")
+                except Exception as e:
+                    print(f"Click failed: {e}, retrying...")
+                    time.sleep(1)  # Wait before retrying
+                    print("Re-checking Multiple Choice A...")
+
+            previous_poll_detected = True  # Mark that we've handled this poll
+        else:
+            print("Already handled the current poll, waiting for a new one...")
+    else:
+        previous_poll_detected = False  # Reset if not on a poll page
+
+    time.sleep(POLL_RATE)  # Wait before the next check
+
 
 print("Ended")
+
 # Cleanup
 driver.quit()
