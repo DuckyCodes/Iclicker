@@ -9,7 +9,7 @@
 pip install selenium
 ```
 
-6. Enter the necessary information in setup.py where marked with 'xxx'.
+6. Enter the necessary information in setup.py.
 
 7. Skip class and catch some sleep since iClickers are no longer needed!
 
